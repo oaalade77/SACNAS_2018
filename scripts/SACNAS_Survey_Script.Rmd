@@ -17,7 +17,9 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r}
 library(tidyverse)
- 
+sdata <- read.csv("https://github.com/oaalade77/SACNAS_2018/blob/master/data/2018_SACNAS_surveyData.csv")
+
+sdata
 ```
 
 
