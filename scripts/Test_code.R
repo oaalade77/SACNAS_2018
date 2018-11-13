@@ -26,16 +26,45 @@ ggplot(data=ca) +
   theme(legend.title = element_blank())
 
 ggplot(data = se) +
-  geom_point(aes(x=year, y = visitors, color=state)) +
+  geom_line(aes(x=year, y = visitors, color=state)) +
                labs(x = "Year",
                     y = "Visitation",
                     title = "SE States National Park") +
              theme_bw() +
              theme(legend.title = element_blank(),
-             axis.text.x = element_text(angle = 45, hjust = 1, size = 14))
+             axis.text.x = element_text(angle = 0, hjust = 1, size = 11))  #hjust or vjust (justify) range between 0 and 1)
 ggplot(data=se)+
   geom_point(aes(x=year, y=visitors, color = park_name))+
   facet_wrap(~state, scales = "fixed")
+
+ggplot(data = se) + 
+  geom_jitter(aes(x = park_name, y = visitors, color = park_name),
+              width = 0.1,
+              aplha = 0.1) + 
+  coord_flip()+ 
+  theme(legend.position ="none")
+
+ggplot(data = se, aes(x = park_name, y = visitors)) + 
+  geom_boxplot()+
+  coord_flip() + 
+  facet_wrap(~state, scales="fixed")
+
+ggplot(data = se, aes(x = year, y = visitors, color = park_name)) +
+  geom_line()
+# 
+cat1 <- c("high", "low", "high", "high", "high", "low", "low", "low", "high", "low", "low")
+cat2 <- c("1-young", "3-old", "2-middle-aged", "3-old", "2-middle-aged", "2-middle-aged", "1-young", "1-young", "3-old", "3-old", "1-young")
+df <- as.data.frame(cbind(cat1, cat2))
+
+library(plyr)
+count1 <- count(df, vars=c("cat1", "cat2"))
+count2 <- count(df, "cat2")
+count1$totals <- count2$freq
+count1$pct <- count1$freq / count1$totals
+
+ggplot(data = count1, aes(x=cat2, y=pct))+
+  geom_line()
+
 
 head(visit_16)
 
