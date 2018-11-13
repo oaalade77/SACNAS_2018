@@ -1,3 +1,5 @@
+library(tidyverse)
+
 #National Parks in California
 ca <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/ca.csv") 
 
