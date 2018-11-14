@@ -38,3 +38,38 @@ select(gapminder, -continent, -lifeExp)
 
 gap_cambodia <- filter(gapminder, country =="Cambodia")
 gap_cambodia2 <- select(gap_cambodia, -continent, -lifeExp)
+
+# Pipe Operators %>% 
+gapminder %>% head(10)
+
+gap_cambodia <- gapminder %>% filter(country == "Cambodia") %>% 
+  select(-continent, -lifeExp)
+gap_cambodia
+
+#adding columns using mutate function 
+gapminder %>% mutate(index=1:nrow(gapminder))
+
+gapminder %>% 
+  mutate(gdp=pop*gdpPercap)
+
+gap_Egypt <- gapminder %>% 
+  filter(country == "Egypt")
+
+max(gap_Egypt$gdpPercap)
+
+gapminder %>% 
+  filter(country == "Egypt") %>% 
+  mutate(gdp=pop*gdpPercap, maxgdp_Egypt = max(gdp))
+
+gapminder %>% 
+  filter(country == "Vietnam") %>% 
+  mutate(gdp=pop*gdpPercap, maxgdp_Viet = max(gdp))
+
+gapminder %>% 
+  filter(country == "Egypt") %>% 
+  mutate(gdp=pop*gdpPercap, maxgdp_Egypt = max(gdp))
+
+gap_EG_VT <- gapminder %>% 
+  filter(country %in% c("Vietnam", "Egypt"))%>% 
+  mutate(gdp=pop*gdpPercap, maxgdp = max(gdp), mingdp=min(gdp))
+View(gap_EG_VT)
